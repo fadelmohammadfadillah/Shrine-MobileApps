@@ -1,0 +1,157 @@
+// Copyright 2018-present the Flutter authors. All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import 'package:flutter/material.dart';
+import 'package:shrine/colors.dart';
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  // TODO: Add text editing controllers (101)
+    // TODO: Add text editing controllers (101)
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            children: <Widget>[
+              const SizedBox(height: 80.0),
+              Column(
+                children: <Widget>[
+                  Image.asset('assets/diamond.png'),
+                  const SizedBox(height: 16.0),
+                  Text(
+                    'SHRINE\nFadel Mohammad Fadillah 221511048',
+                    style: Theme.of(context).textTheme.headlineSmall,
+                    textAlign: TextAlign.center,
+                  ), 
+                ],
+              ),
+              const SizedBox(height: 120.0),
+              // TODO: Remove filled: true values (103)
+              // TODO: Add TextField widgets (101)
+              // TODO: Add TextField widgets (101)
+              // [Name]
+              // TextField(
+              //   controller: _usernameController,
+              //   decoration: const InputDecoration(
+              //     labelText: 'Username',
+              //   ),
+              // ),
+              TextFormField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(
+                    labelText: 'Username',
+                  ),
+                  validator: (value){
+                    if (value == null || value.isEmpty){
+                      return 'Please enter your username';
+                    }
+                    return null;
+                  },
+              ),
+              // spacer
+              const SizedBox(height: 12.0),
+              // [Password]
+              // TextField(
+              //   controller: _passwordController,
+              //   decoration: const InputDecoration(
+              //     labelText: 'Password',
+              //   ),
+              //   obscureText: true,
+              // ),
+              TextFormField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    labelText: 'Password',
+                  ),
+                  obscureText: true,
+                  validator: (value){
+                    if (value == null || value.isEmpty){
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+              ),
+              // TODO: Add button bar (101)
+              // TODO: Add button bar (101)
+              OverflowBar(
+                alignment: MainAxisAlignment.end,
+                // TODO: Add a beveled rectangular border to CANCEL (103)
+                children: <Widget>[
+                  // TODO: Add buttons (101)
+                      // TODO: Add buttons (101)
+                TextButton(
+                  child: const Text('CANCEL'),
+                  onPressed: () {
+                    // TODO: Clear the text fields (101)
+                    // TODO: Clear the text fields (101)
+                    _usernameController.clear();
+                    _passwordController.clear();
+                  },
+                  style: TextButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.secondary,
+                    shape: const BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7.0))
+                    )
+                  ),
+                ),
+                // TODO: Add an elevation to NEXT (103)
+                // TODO: Add a beveled rectangular border to NEXT (103)
+                ElevatedButton(
+                  child: const Text('NEXT'),
+                  onPressed: () {
+                    print(_usernameController.text);
+                    print( _passwordController.text);
+                    // MODIF: menambahkan validasi untuk memasukkan username dan password untuk menuju homepage
+                    if(_formKey.currentState != null && _formKey.currentState!.validate()){
+                      if (_usernameController.text == 'Fadel' && _passwordController.text == '048'){
+                        Navigator.pop(context);
+                      }else{
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Invalid username or password'),
+                          ),
+                        );
+                      }
+                    }
+                    // TODO: Show the next page (101) 
+                    // TODO: Show the next page (101) 
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: kShrineBrown900,
+                    backgroundColor: kShrinePink100,
+                    elevation: 5.0
+                  ),
+                ),
+                ],
+              ),
+            ],
+          ),
+        )
+        
+      ),
+    );
+  }
+}
